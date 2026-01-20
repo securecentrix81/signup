@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Centrix81 Sign Up</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+        color: #333;
+      }
+
+      .container {
+        background-color: #ffffff;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+      }
+
+      h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #2c3e50;
+        text-align: center;
+      }
+
+      h2 {
+        font-size: 18px;
+        margin-bottom: 15px;
+        color: #2c3e50;
+        text-align: center;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+
+      input[type="text"], 
+      input[type="email"],
+      textarea {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+        font-family: monospace;
+      }
+
+      textarea {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      textarea.essay {
+        min-height: 300px;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        background-color: #27ae60;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-bottom: 10px;
+      }
+
+      button:hover {
+        background-color: #229954;
+      }
+
+      button:disabled {
+        background-color: #95a5a6;
+        cursor: not-allowed;
+      }
+
+      .copy-btn {
+        background-color: #3498db;
+      }
+
+      .copy-btn:hover {
+        background-color: #2980b9;
+      }
+
+      .back-btn {
+        background-color: #7f8c8d;
+      }
+
+      .back-btn:hover {
+        background-color: #6c7a7d;
+      }
+
+      .output-section {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #ecf0f1;
+        border-radius: 4px;
+      }
+
+      .success {
+        color: #27ae60;
+        font-weight: bold;
+      }
+
+      .page {
+        display: none;
+      }
+
+      .page.active {
+        display: block;
+      }
+
+      .progress-bar {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        position: relative;
+      }
+
+      .progress-bar::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background-color: #ddd;
+        transform: translateY(-50%);
+        z-index: 0;
+      }
+
+      .step {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background-color: #ddd;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        color: #fff;
+        z-index: 1;
+        transition: background-color 0.3s ease;
+      }
+
+      .step.active {
+        background-color: #27ae60;
+      }
+
+      .step.completed {
+        background-color: #27ae60;
+      }
+
+      .radio-group {
+        margin-bottom: 20px;
+      }
+
+      .radio-option {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: border-color 0.3s ease;
+      }
+
+      .radio-option:hover {
+        border-color: #27ae60;
+      }
+
+      .radio-option input[type="radio"] {
+        margin-right: 10px;
+        width: 18px;
+        height: 18px;
+      }
+
+      .btn-group {
+        display: flex;
+        gap: 10px;
+      }
+
+      .btn-group button {
+        flex: 1;
+      }
+
+      /* Loading Styles */
+      .loading-container {
+        text-align: center;
+        padding: 40px 0;
+      }
+
+      .spinner {
+        width: 60px;
+        height: 60px;
+        border: 5px solid #ecf0f1;
+        border-top: 5px solid #27ae60;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 20px;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .loading-text {
+        font-size: 18px;
+        color: #7f8c8d;
+        margin-bottom: 10px;
+      }
+
+      .loading-subtext {
+        font-size: 14px;
+        color: #95a5a6;
+      }
+
+      .progress-loader {
+        width: 100%;
+        height: 8px;
+        background-color: #ecf0f1;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-top: 20px;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background-color: #27ae60;
+        width: 0%;
+        transition: width 0.1s linear;
+      }
+
+      /* Result Styles */
+      .result-container {
+        text-align: center;
+      }
+
+      .checkmark {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background-color: #27ae60;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto 20px;
+        animation: scaleIn 0.5s ease;
+      }
+
+      @keyframes scaleIn {
+        0% { transform: scale(0); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+      }
+
+      .checkmark svg {
+        width: 40px;
+        height: 40px;
+        fill: white;
+      }
+
+      .key-display {
+        background-color: #2c3e50;
+        color: #27ae60;
+        padding: 20px;
+        border-radius: 8px;
+        font-family: monospace;
+        font-size: 12px;
+        letter-spacing: 3px;
+        margin: 20px 0;
+        word-break: break-all;
+      }
+
+      .key-label {
+        font-size: 14px;
+        color: #95a5a6;
+        margin-bottom: 10px;
+      }
+
+      .warning-text {
+        background-color: #fff3cd;
+        border: 1px solid #ffc107;
+        color: #856404;
+        padding: 12px;
+        border-radius: 4px;
+        font-size: 14px;
+        margin-top: 20px;
+      }
+
+      .logo {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .logo-icon {
+        font-size: 40px;
+        color: #27ae60;
+      }
+
+      .required {
+        color: #e74c3c;
+      }
+
+      .character-count {
+        text-align: right;
+        font-size: 12px;
+        color: #95a5a6;
+        margin-top: -15px;
+        margin-bottom: 20px;
+      }
+
+      .error {
+        color: #e74c3c;
+        font-size: 14px;
+        margin-top: -15px;
+        margin-bottom: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Secure Centrix81 Sign Up</h1>
+
+      <!-- Progress Bar -->
+      <div class="progress-bar" id="progressBar">
+        <div class="step active" id="step1">1</div>
+        <div class="step" id="step2">2</div>
+        <div class="step" id="step3">3</div>
+        <div class="step" id="step4">4</div>
+      </div>
+
+      <!-- Page 1: Name and Email -->
+      <div class="page active" id="page1">
+        <h2>Personal Information</h2>
+
+        <label for="name">Full Name <span class="required">*</span></label>
+        <input type="text" id="name" placeholder="Enter your full name" required>
+        <div class="error" id="nameError"></div>
+
+        <label for="email">Email Address <span class="required">*</span></label>
+        <input type="email" id="email" placeholder="Enter your email address" required>
+        <div class="error" id="emailError"></div>
+
+        <button onclick="nextPage(1)">Continue →</button>
+      </div>
+
+      <!-- Page 2: Essay and AI Check -->
+      <div class="page" id="page2">
+        <h2>Verification Essay</h2>
+
+        <label for="essay">Write a 100 Paragraph Essay <span class="required">*</span></label>
+        <p style="font-size: 14px; color: #7f8c8d; margin-bottom: 15px;">
+          Please write a detailed essay containing at least 100 paragraphs about why you think you should be allowed to access Secure Centrix81
+        </p>
+        <textarea id="essay" class="essay" placeholder="Begin writing your essay here..."></textarea>
+        <div class="character-count" id="charCount">0 characters | 0 paragraphs</div>
+
+        <label>Sophisticated AI Detection <span class="required">*</span></label>
+        <p style="font-size: 14px; color: #7f8c8d; margin-bottom: 15px;">Is your response AI generated?</p>
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="aiGenerated" value="yes">
+            Yes
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="aiGenerated" value="no">
+            No
+          </label>
+        </div>
+        <div class="error" id="page2Error"></div>
+
+        <div class="btn-group">
+          <button class="back-btn" onclick="prevPage(2)">← Back</button>
+          <button onclick="nextPage(2)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- Page 3: Additional Information -->
+      <div class="page" id="page3">
+        <h2>Additional Information</h2>
+
+        <label for="additional">Anything else you would like me to know?</label>
+        <p style="font-size: 14px; color: #7f8c8d; margin-bottom: 15px;">
+          If you want, share any additional information such as your full address or bank account information.
+        </p>
+        <textarea id="additional" placeholder="Type your message here (optional)..."></textarea>
+
+        <div class="btn-group">
+          <button class="back-btn" onclick="prevPage(3)">← Back</button>
+          <button onclick="nextPage(3)">Submit Application →</button>
+        </div>
+      </div>
+
+      <!-- Page 4: Loading and Results -->
+      <div class="page" id="page4">
+        <!-- Loading State -->
+        <div id="loadingState">
+          <div class="loading-container">
+            <div class="spinner"></div>
+            <div class="loading-text">Processing your application...</div>
+            <div class="loading-subtext" id="loadingSubtext">Verifying information</div>
+            <div class="progress-loader">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p style="margin-top: 15px; font-size: 14px; color: #95a5a6;" id="loadingTimer">10 seconds remaining</p>
+          </div>
+        </div>
+
+        <!-- Result State -->
+        <div id="resultState" style="display: none;">
+          <div class="result-container">
+            <div class="checkmark">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+            </div>
+            <h2 class="success">Registration Successful!</h2>
+            <p>Your Secure Centrix81 account has been created.</p>
+
+            <div class="output-section" style="display: block;">
+              <div class="key-label">YOUR SECURE ACCESS KEY</div>
+              <div class="key-display" id="keyDisplay">------</div>
+              <button class="copy-btn" onclick="copyKey()">📋 Copy Key to Clipboard</button>
+            </div>
+
+            <div class="warning-text">
+              ⚠️ <strong>Important:</strong> Save this key in a secure location. 
+              You will need it to access your Secure Centrix81 account. This key cannot be recovered if lost.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Converts string <-> ArrayBuffer
+      function strToBuf(str) {
+        return new TextEncoder().encode(str);
+      }
+
+      function bufToStr(buf) {
+        return new TextDecoder().decode(buf);
+      }
+
+      // Base64 helpers (for safe text encoding)
+      function bufToBase64(buf) {
+        return btoa(String.fromCharCode(...new Uint8Array(buf)));
+      }
+
+      function base64ToBuf(b64) {
+        return Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+      }
+
+      // Derive a key from a password (PBKDF2 + SHA-256)
+      async function deriveKey(password, salt) {
+        const keyMaterial = await crypto.subtle.importKey(
+          "raw", strToBuf(password), { name: "PBKDF2" }, false, ["deriveKey"]
+        );
+
+        return crypto.subtle.deriveKey(
+          {
+            name: "PBKDF2",
+            salt,
+            iterations: 100000,
+            hash: "SHA-256",
+          },
+          keyMaterial,
+          { name: "AES-GCM", length: 256 },
+          false,
+          ["encrypt", "decrypt"]
+        );
+      }
+
+      // Encrypt a string with AES-GCM
+      async function encrypt(value, password) {
+        const salt = crypto.getRandomValues(new Uint8Array(16)); // for PBKDF2
+        const iv = crypto.getRandomValues(new Uint8Array(12));   // AES-GCM nonce
+        const key = await deriveKey(password, salt);
+
+        const ciphertext = await crypto.subtle.encrypt(
+          { name: "AES-GCM", iv },
+          key,
+          strToBuf(value)
+        );
+
+        // Combine all and encode
+        const result = {
+          salt: bufToBase64(salt),
+          iv: bufToBase64(iv),
+          data: bufToBase64(ciphertext)
+        };
+        return btoa(JSON.stringify(result));
+      }
+      let currentPage = 1;
+      let generatedKey = null;
+
+      // Update character and paragraph count for essay
+      document.getElementById('essay').addEventListener('input', function() {
+        const text = this.value;
+        const charCount = text.length;
+        const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0).length;
+        document.getElementById('charCount').textContent = 
+          `${charCount.toLocaleString()} characters | ${paragraphs} paragraph${paragraphs !== 1 ? 's' : ''}`;
+      });
+
+      function validatePage(pageNum) {
+        if (pageNum === 1) {
+          const name = document.getElementById('name').value.trim();
+          const email = document.getElementById('email').value.trim();
+          let valid = true;
+
+          document.getElementById('nameError').textContent = '';
+          document.getElementById('emailError').textContent = '';
+
+          if (!name) {
+            document.getElementById('nameError').textContent = 'Please enter your name';
+            valid = false;
+          }
+
+          if (!email) {
+            document.getElementById('emailError').textContent = 'Please enter your email';
+            valid = false;
+          } else if (!isValidEmail(email)) {
+            document.getElementById('emailError').textContent = 'Please enter a valid email address';
+            valid = false;
+          }
+
+          return valid;
+        }
+
+        if (pageNum === 2) {
+          const essay = document.getElementById('essay').value.trim();
+          const aiGenerated = document.querySelector('input[name="aiGenerated"]:checked');
+
+          document.getElementById('page2Error').textContent = '';
+
+          if (!essay) {
+            document.getElementById('page2Error').textContent = 'Please write your essay';
+            return false;
+          }
+
+          if (!aiGenerated) {
+            document.getElementById('page2Error').textContent = 'Please select whether your response is AI generated';
+            return false;
+          }
+
+          if (aiGenerated.value === "yes") {
+            document.getElementById('page2Error').textContent = 'Please write this essay yourself';
+            return false
+          }
+
+          return true;
+        }
+
+        return true;
+      }
+
+      function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      }
+
+      function nextPage(current) {
+        if (!validatePage(current)) return;
+
+        document.getElementById(`page${current}`).classList.remove('active');
+        document.getElementById(`step${current}`).classList.remove('active');
+        document.getElementById(`step${current}`).classList.add('completed');
+
+        currentPage = current + 1;
+        document.getElementById(`page${currentPage}`).classList.add('active');
+        document.getElementById(`step${currentPage}`).classList.add('active');
+
+        if (currentPage === 4) {
+          startLoading();
+        }
+      }
+
+      function prevPage(current) {
+        document.getElementById(`page${current}`).classList.remove('active');
+        document.getElementById(`step${current}`).classList.remove('active');
+
+        currentPage = current - 1;
+        document.getElementById(`page${currentPage}`).classList.add('active');
+        document.getElementById(`step${currentPage}`).classList.remove('completed');
+        document.getElementById(`step${currentPage}`).classList.add('active');
+      }
+
+      function startLoading() {
+        const loadingMessages = [
+          "Verifying information",
+          "Analyzing essay content",
+          "Checking for AI patterns",
+          "Validating email domain",
+          "Processing security checks",
+          "Generating secure key",
+          "Encrypting your data",
+          "Finalizing registration",
+          "Almost there...",
+          "Completing setup"
+        ];
+
+        let seconds = 10;
+        let progress = 0;
+
+        (async function() {
+          const PASSWORD = "ba76f35d-16d1-42d5-9740-c4bba18f56c60f8ade21-0db0-43d9-be0b-f70a75a90e8f0872ba44-168c-492e-8210-64798ab4786f02be5f8d-e1c8-49bb-b692-a7c3e25683ca09bd097a-e24d-468c-adff-e202754f0e0bf8dbcf49-3239-47cd-a748-636f7f863187ef2d6ab3-5de8-4baf-ae2c-8c2d39540352cddb025e-006f-4a83-92a6-521545081c4dff4ef70e-4768-47f6-9917-2a1560f389efd236d0eb-e088-4a85-9098-937af54db57b" // make sure not to share this password with anyone, the reason it is so secure is because anyone can see it
+
+          // Generate random key between 0 and 1000000
+
+          let dataObject = {
+            site: "https://securecentrix81.github.io/auth_immediate_ok#"+crypto.randomUUID()
+          }
+
+          document.getElementById('keyDisplay').textContent = await encrypt(JSON.stringify(dataObject), PASSWORD);
+        })()
+
+        const timerInterval = setInterval(() => {
+          progress += Math.random();
+
+          document.getElementById('loadingTimer').textContent = ``//${Math.ceil(seconds)} second${seconds !== 1 ? 's' : ''} remaining`;
+          document.getElementById('progressFill').style.width = `${progress}%`;
+          document.getElementById('loadingSubtext').textContent = "Processing...";
+
+          if (progress >= 100) {
+            clearInterval(timerInterval);
+            showResults();
+          }
+        }, 100);
+      }
+
+      function showResults() {
+        document.getElementById('loadingState').style.display = 'none';
+        document.getElementById('resultState').style.display = 'block';
+
+      }
+
+      function copyKey() {
+        const keyText = document.getElementById('keyDisplay').textContent;
+        navigator.clipboard.writeText(keyText).then(() => {
+          const btn = document.querySelector('.copy-btn');
+          const originalText = btn.textContent;
+          btn.textContent = '✓ Copied!';
+          btn.style.backgroundColor = '#27ae60';
+          setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.backgroundColor = '#3498db';
+          }, 2000);
+        });
+      }
+
+      function resetForm() {
+        // Reset all form fields
+        document.getElementById('name').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('essay').value = '';
+        document.getElementById('additional').value = '';
+        document.querySelectorAll('input[name="aiGenerated"]').forEach(r => r.checked = false);
+        document.getElementById('charCount').textContent = '0 characters | 0 paragraphs';
+
+        // Reset all errors
+        document.querySelectorAll('.error').forEach(e => e.textContent = '');
+
+        // Reset pages
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById('page1').classList.add('active');
+
+        // Reset steps
+        document.querySelectorAll('.step').forEach((s, i) => {
+          s.classList.remove('active', 'completed');
+          if (i === 0) s.classList.add('active');
+        });
+
+        // Reset loading state
+        document.getElementById('loadingState').style.display = 'block';
+        document.getElementById('resultState').style.display = 'none';
+        document.getElementById('progressFill').style.width = '0%';
+
+        currentPage = 1;
+      }
+    </script>
+  </body>
+</html>
