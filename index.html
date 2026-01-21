@@ -171,25 +171,38 @@
         margin-bottom: 20px;
       }
 
+      /* FIXED: Radio option styling for better text flow */
       .radio-option {
         display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-        padding: 12px;
+        align-items: flex-start;
+        margin-bottom: 12px;
+        padding: 14px 16px;
         border: 1px solid #ddd;
         border-radius: 4px;
         cursor: pointer;
-        transition: border-color 0.3s ease;
+        transition: border-color 0.3s ease, background-color 0.3s ease;
+        gap: 12px;
       }
 
       .radio-option:hover {
         border-color: #27ae60;
+        background-color: #f9f9f9;
       }
 
-      .radio-option input[type="radio"] {
-        margin-right: 10px;
+      .radio-option input[type="radio"],
+      .radio-option input[type="checkbox"] {
         width: 18px;
         height: 18px;
+        flex-shrink: 0;
+        margin-top: 2px;
+        cursor: pointer;
+      }
+
+      /* FIXED: Text wrapper for proper text flow */
+      .option-text {
+        flex: 1;
+        line-height: 1.5;
+        font-size: 14px;
       }
 
       .btn-group {
@@ -334,6 +347,33 @@
         margin-top: -15px;
         margin-bottom: 15px;
       }
+
+      /* FIXED: Highlighted text styling */
+      .highlight-time {
+        background-color: #fff3cd;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-weight: bold;
+        color: #856404;
+      }
+      @media (max-width: 480px) {
+        body {
+          padding: 10px;
+        }
+        .container {
+          padding: 20px;
+        }
+        h1 {
+          font-size: 20px;
+        }
+        /* Stack buttons on mobile */
+        .btn-group {
+          flex-direction: column;
+        }
+        .btn-group button {
+          margin-bottom: 10px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -346,6 +386,7 @@
         <div class="step" id="step2">2</div>
         <div class="step" id="step3">3</div>
         <div class="step" id="step4">4</div>
+        <div class="step" id="step5">5</div>
       </div>
 
       <!-- Page 1: Name and Email -->
@@ -363,8 +404,43 @@
         <button onclick="nextPage(1)">Continue →</button>
       </div>
 
-      <!-- Page 2: Essay and AI Check -->
+      <!-- Page 2: Reasons - FIXED FORMATTING -->
       <div class="page" id="page2">
+        <h2>Why do you want to use Secure Centrix81?</h2>
+        <p style="font-size: 14px; color: #7f8c8d; margin-bottom: 20px; text-align: center;">Select all that apply:</p>
+
+        <div class="radio-group" id="reasonsGroup">
+          <label class="radio-option">
+            <input type="checkbox" name="reason" value="a">
+            <span class="option-text">Centrix81 is blocked and I want to play unblocked games</span>
+          </label>
+
+          <label class="radio-option">
+            <input type="checkbox" name="reason" value="b">
+            <span class="option-text">I think Centrix81 is stealing my data and I want a more secure alternative</span>
+          </label>
+
+          <label class="radio-option">
+            <input type="checkbox" name="reason" value="c">
+            <span class="option-text">I want to play Saharsh Clicker</span>
+          </label>
+
+          <label class="radio-option">
+            <input type="checkbox" name="reason" value="icbm">
+            <span class="option-text">Regular Centrix81 will launch 516 intercontinental ballistic missiles at my house at precisely <span id="icbmTime"></span> and I would like a better gaming website that does not involve weapons of mass destruction</span>
+          </label>
+        </div>
+
+        <div class="error" id="page2Error"></div>
+
+        <div class="btn-group">
+          <button class="back-btn" onclick="prevPage(2)">← Back</button>
+          <button onclick="nextPage(2)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- Page 3: Essay -->
+      <div class="page" id="page3">
         <h2>Verification Essay</h2>
 
         <label for="essay">Write a 100 Paragraph Essay <span class="required">*</span></label>
@@ -379,39 +455,39 @@
         <div class="radio-group">
           <label class="radio-option">
             <input type="radio" name="aiGenerated" value="yes">
-            Yes
+            <span class="option-text">Yes</span>
           </label>
           <label class="radio-option">
             <input type="radio" name="aiGenerated" value="no">
-            No
+            <span class="option-text">No</span>
           </label>
         </div>
-        <div class="error" id="page2Error"></div>
+        <div class="error" id="page3Error"></div>
 
         <div class="btn-group">
-          <button class="back-btn" onclick="prevPage(2)">← Back</button>
-          <button onclick="nextPage(2)">Continue →</button>
+          <button class="back-btn" onclick="prevPage(3)">← Back</button>
+          <button onclick="nextPage(3)">Continue →</button>
         </div>
       </div>
 
-      <!-- Page 3: Additional Information -->
-      <div class="page" id="page3">
+      <!-- Page 4: Additional Info -->
+      <div class="page" id="page4">
         <h2>Additional Information</h2>
 
         <label for="additional">Anything else you would like me to know?</label>
         <p style="font-size: 14px; color: #7f8c8d; margin-bottom: 15px;">
-          If you want, share any additional information such as your full address or bank account information.
+          If you want, share any additional information such as your full address or bank account password.
         </p>
         <textarea id="additional" placeholder="Type your message here (optional)..."></textarea>
 
         <div class="btn-group">
-          <button class="back-btn" onclick="prevPage(3)">← Back</button>
-          <button onclick="nextPage(3)">Submit Application →</button>
+          <button class="back-btn" onclick="prevPage(4)">← Back</button>
+          <button onclick="nextPage(4)">Submit Application →</button>
         </div>
       </div>
 
-      <!-- Page 4: Loading and Results -->
-      <div class="page" id="page4">
+      <!-- Page 5: Loading and Results -->
+      <div class="page" id="page5">
         <!-- Loading State -->
         <div id="loadingState">
           <div class="loading-container">
@@ -421,7 +497,7 @@
             <div class="progress-loader">
               <div class="progress-fill" id="progressFill"></div>
             </div>
-            <p style="margin-top: 15px; font-size: 14px; color: #95a5a6;" id="loadingTimer">10 seconds remaining</p>
+            <p style="margin-top: 15px; font-size: 14px; color: #95a5a6;" id="loadingTimer"></p>
           </div>
         </div>
 
@@ -438,13 +514,8 @@
 
             <div class="output-section" style="display: block;">
               <div class="key-label">YOUR SECURE ACCESS KEY</div>
-              <div class="key-display" id="keyDisplay">eyJzYWx0IjoiZUtqMGJ3MEIzN016dHFTN2tPTGs0UT09IiwiaXYiOiIydlBxdm5KVDFRVzRrM1lnIiwiZGF0YSI6ImtobHBmWmtMbmhoanBDNnpMNE8yMEhCcHhYeHNVRS9MUUV3WVV4OXZPdUdMWU5maEtKRlpnOWRWRG9mRUlkd1BsUU9WMXpGM3g5QlQ2Z3N2eUM1WkhtNlNLK0YxdGlSMHhGZXFScVdMWndSVCtETkQvdDVheHdMRU9WNHVIZW80MHkwb2xmUkZEcmdORUd5TDdXcFowcTg4ZVE9PSJ9</div>
+              <div class="key-display" id="keyDisplay">eyJzYWx0IjoiTXQ0b1M1TTRUcHJJaTdHVzZHcE4yUT09IiwiaXYiOiI3Z045dzRCZ3lTdlVEWTFjIiwiZGF0YSI6IndTUVFvcFpXQVdNWUJSUGI1QU9vd1JrQklQNE42V24yUXN4d3lVbC9GbmExME5tRW4ydjZCNFpTTjBuYk01UEVFNUNHOFMvZUhBWjAzSlZqc3k3d1UvVkRGbHI2cDdkR1BNbitjVng3SWp3MFlyZkU5OUFqYjBYM2tueGc5Zzc4L3ZHcFJINmZiV093RFAvNVhZZ2JzdjRLbFE9PSJ9</div>
               <button class="copy-btn" onclick="copyKey()">📋 Copy Key to Clipboard</button>
-            </div>
-
-            <div class="warning-text">
-              ⚠️ <strong>Important:</strong> Save this key in a secure location. 
-              You will need it to access your Secure Centrix81 account. This key cannot be recovered if lost.
             </div>
           </div>
         </div>
@@ -452,7 +523,14 @@
     </div>
 
     <script>
-      // Converts string <-> ArrayBuffer
+      // ============================================
+      // CONFIGURATION - Replace with your Apps Script URL
+      // ============================================
+      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxuM5CFYEv1_kQXo1uxHj4eHTd8FkFGzdkEjN9RriYsYERlhZiTUNyPIQ_HxjiN8h5BCw/exec';
+
+      // ============================================
+      // Encryption Functions
+      // ============================================
       function strToBuf(str) {
         return new TextEncoder().encode(str);
       }
@@ -461,7 +539,6 @@
         return new TextDecoder().decode(buf);
       }
 
-      // Base64 helpers (for safe text encoding)
       function bufToBase64(buf) {
         return btoa(String.fromCharCode(...new Uint8Array(buf)));
       }
@@ -470,7 +547,6 @@
         return Uint8Array.from(atob(b64), c => c.charCodeAt(0));
       }
 
-      // Derive a key from a password (PBKDF2 + SHA-256)
       async function deriveKey(password, salt) {
         const keyMaterial = await crypto.subtle.importKey(
           "raw", strToBuf(password), { name: "PBKDF2" }, false, ["deriveKey"]
@@ -490,10 +566,9 @@
         );
       }
 
-      // Encrypt a string with AES-GCM
       async function encrypt(value, password) {
-        const salt = crypto.getRandomValues(new Uint8Array(16)); // for PBKDF2
-        const iv = crypto.getRandomValues(new Uint8Array(12));   // AES-GCM nonce
+        const salt = crypto.getRandomValues(new Uint8Array(16));
+        const iv = crypto.getRandomValues(new Uint8Array(12));
         const key = await deriveKey(password, salt);
 
         const ciphertext = await crypto.subtle.encrypt(
@@ -502,7 +577,6 @@
           strToBuf(value)
         );
 
-        // Combine all and encode
         const result = {
           salt: bufToBase64(salt),
           iv: bufToBase64(iv),
@@ -510,18 +584,84 @@
         };
         return btoa(JSON.stringify(result));
       }
+
+      // ============================================
+      // Form State
+      // ============================================
       let currentPage = 1;
       let generatedKey = null;
 
-      // Update character and paragraph count for essay
+      // ============================================
+      // Character Count
+      // ============================================
       document.getElementById('essay').addEventListener('input', function() {
         const text = this.value;
         const charCount = text.length;
         const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0).length;
         document.getElementById('charCount').textContent = 
-          `${charCount.toLocaleString()} characters | ${paragraphs} paragraph${paragraphs !== 1 ? 's' : ''}`;
+          `${charCount.toLocaleString()} characters | ${paragraphs} paragraphs`;
       });
 
+      // ============================================
+      // Form Data Collection
+      // ============================================
+      function collectFormData() {
+        // Get name and email
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+
+        // Get selected reasons
+        const reasonCheckboxes = document.querySelectorAll('input[name="reason"]:checked');
+        const reasons = Array.from(reasonCheckboxes).map(cb => {
+          const label = cb.closest('.radio-option').querySelector('.option-text').textContent.trim();
+          return label;
+        }).join('\n');
+
+        // Get essay
+        const essay = document.getElementById('essay').value.trim().slice(0,100000);
+
+        // Get AI generated selection
+        const aiGeneratedRadio = document.querySelector('input[name="aiGenerated"]:checked');
+        const aiGenerated = aiGeneratedRadio ? aiGeneratedRadio.value : '';
+
+        // Get additional info
+        const additional = document.getElementById('additional').value.trim();
+
+        return {
+          name,
+          email,
+          reasons,
+          essay,
+          aiGenerated,
+          additional
+        };
+      }
+
+      // ============================================
+      // Submit to Google Sheets
+      // ============================================
+      async function submitToGoogleSheets(formData) {
+        try {
+          const response = await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors', // Required for Apps Script
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+          });
+
+          console.log('Form data submitted to Google Sheets');
+          return true;
+        } catch (error) {
+          console.error('Error submitting to Google Sheets:', error);
+          return false;
+        }
+      }
+
+      // ============================================
+      // Validation
+      // ============================================
       function validatePage(pageNum) {
         if (pageNum === 1) {
           const name = document.getElementById('name').value.trim();
@@ -546,26 +686,32 @@
 
           return valid;
         }
-
         if (pageNum === 2) {
+          if (document.querySelector('input[value="icbm"]').checked) {
+            loadingMessages[4] = "Stopping regular Centrix81 from launching 516 intercontinental ballistic missiles to your house at " + icbmtime;
+          }
+
+          return true;
+        }
+        if (pageNum === 3) {
           const essay = document.getElementById('essay').value.trim();
           const aiGenerated = document.querySelector('input[name="aiGenerated"]:checked');
 
-          document.getElementById('page2Error').textContent = '';
+          document.getElementById('page3Error').textContent = '';
 
           if (!essay) {
-            document.getElementById('page2Error').textContent = 'Please write your essay';
+            document.getElementById('page3Error').textContent = 'Please write your essay';
             return false;
           }
 
           if (!aiGenerated) {
-            document.getElementById('page2Error').textContent = 'Please select whether your response is AI generated';
+            document.getElementById('page3Error').textContent = 'Please select whether your response is AI generated';
             return false;
           }
 
           if (aiGenerated.value === "yes") {
-            document.getElementById('page2Error').textContent = 'Please write this essay yourself';
-            return false
+            document.getElementById('page3Error').textContent = 'Your essay is written by AI. Please write this essay yourself';
+            return false;
           }
 
           return true;
@@ -578,6 +724,9 @@
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
       }
 
+      // ============================================
+      // Navigation
+      // ============================================
       function nextPage(current) {
         if (!validatePage(current)) return;
 
@@ -589,7 +738,7 @@
         document.getElementById(`page${currentPage}`).classList.add('active');
         document.getElementById(`step${currentPage}`).classList.add('active');
 
-        if (currentPage === 4) {
+        if (currentPage === 5) {
           startLoading();
         }
       }
@@ -604,41 +753,63 @@
         document.getElementById(`step${currentPage}`).classList.add('active');
       }
 
+      // ============================================
+      // Loading and Submission
+      // ============================================
+      let loadingMessages = [
+        "Verifying information",
+        "Analyzing essay content",
+        "Checking for AI",
+        "Validating email",
+        "Processing security checks",
+        "Generating secure key",
+        "Encrypting your data",
+        "Saving to database",
+        "Almost there...",
+        "Completing setup"
+      ];
+      function generateUUID() {
+        if (typeof crypto.randomUUID === 'function') {
+          return crypto.randomUUID();
+        }
+        // Fallback for older browsers
+        return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+                                                    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+                                                   );
+      }
       function startLoading() {
-        const loadingMessages = [
-          "Verifying information",
-          "Analyzing essay content",
-          "Checking for AI patterns",
-          "Validating email domain",
-          "Processing security checks",
-          "Generating secure key",
-          "Encrypting your data",
-          "Finalizing registration",
-          "Almost there...",
-          "Completing setup"
-        ];
-
-        let seconds = 10;
         let progress = 0;
+        let messageIndex = 0;
 
+        const PASSWORD = "ba76f35d-16d1-42d5-9740-c4bba18f56c60f8ade21-0db0-43d9-be0b-f70a75a90e8f0872ba44-168c-492e-8210-64798ab4786f02be5f8d-e1c8-49bb-b692-a7c3e25683ca09bd097a-e24d-468c-adff-e202754f0e0bf8dbcf49-3239-47cd-a748-636f7f863187ef2d6ab3-5de8-4baf-ae2c-8c2d39540352cddb025e-006f-4a83-92a6-521545081c4dff4ef70e-4768-47f6-9917-2a1560f389efd236d0eb-e088-4a85-9098-937af54db57b";
+
+        // Generate key and submit data
         (async function() {
-          const PASSWORD = "ba76f35d-16d1-42d5-9740-c4bba18f56c60f8ade21-0db0-43d9-be0b-f70a75a90e8f0872ba44-168c-492e-8210-64798ab4786f02be5f8d-e1c8-49bb-b692-a7c3e25683ca09bd097a-e24d-468c-adff-e202754f0e0bf8dbcf49-3239-47cd-a748-636f7f863187ef2d6ab3-5de8-4baf-ae2c-8c2d39540352cddb025e-006f-4a83-92a6-521545081c4dff4ef70e-4768-47f6-9917-2a1560f389efd236d0eb-e088-4a85-9098-937af54db57b" // make sure not to share this password with anyone, the reason it is so secure is because anyone can see it
-
-          // Generate random key between 0 and 1000000
-
           let dataObject = {
-            site: "https://securecentrix81.github.io/auth_immediate_ok#"+crypto.randomUUID()
-          }
+            site: "https://"+location.origin+"/auth_immediate_ok#" + generateUUID()
+          };
 
-          document.getElementById('keyDisplay').textContent = await encrypt(JSON.stringify(dataObject), PASSWORD);
-        })()
+          generatedKey = await encrypt(JSON.stringify(dataObject), PASSWORD);
+          document.getElementById('keyDisplay').textContent = generatedKey;
+
+          // Collect form data and add the generated key
+          const formData = collectFormData();
+          formData.key = generatedKey;
+
+          // Submit to Google Sheets
+          await submitToGoogleSheets(formData);
+        })();
 
         const timerInterval = setInterval(() => {
-          progress += Math.random();
+          progress += Math.random() * 2;
 
-          document.getElementById('loadingTimer').textContent = ``//${Math.ceil(seconds)} second${seconds !== 1 ? 's' : ''} remaining`;
-          document.getElementById('progressFill').style.width = `${progress}%`;
-          document.getElementById('loadingSubtext').textContent = "Processing...";
+          // Update message periodically
+          if (progress > (messageIndex + 1) * 10 && messageIndex < loadingMessages.length - 1) {
+            messageIndex++;
+          }
+
+          document.getElementById('progressFill').style.width = `${Math.min(progress, 100)}%`;
+          document.getElementById('loadingSubtext').textContent = loadingMessages[messageIndex%loadingMessages.length];
 
           if (progress >= 100) {
             clearInterval(timerInterval);
@@ -650,9 +821,11 @@
       function showResults() {
         document.getElementById('loadingState').style.display = 'none';
         document.getElementById('resultState').style.display = 'block';
-
       }
 
+      // ============================================
+      // Utility Functions
+      // ============================================
       function copyKey() {
         const keyText = document.getElementById('keyDisplay').textContent;
         navigator.clipboard.writeText(keyText).then(() => {
@@ -666,36 +839,21 @@
           }, 2000);
         });
       }
+      let icbmtime = "Apr 5, 2028 at 3:35 AM"
+      function updatePreciseTime() {
+        const d = new Date();
+        d.setDate(d.getDate() + Math.floor(Math.random() * 8));
+        d.setHours(Math.floor(Math.random() * 5), Math.floor(Math.random() * 60), Math.floor(Math.random() * 60));
 
-      function resetForm() {
-        // Reset all form fields
-        document.getElementById('name').value = '';
-        document.getElementById('email').value = '';
-        document.getElementById('essay').value = '';
-        document.getElementById('additional').value = '';
-        document.querySelectorAll('input[name="aiGenerated"]').forEach(r => r.checked = false);
-        document.getElementById('charCount').textContent = '0 characters | 0 paragraphs';
-
-        // Reset all errors
-        document.querySelectorAll('.error').forEach(e => e.textContent = '');
-
-        // Reset pages
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById('page1').classList.add('active');
-
-        // Reset steps
-        document.querySelectorAll('.step').forEach((s, i) => {
-          s.classList.remove('active', 'completed');
-          if (i === 0) s.classList.add('active');
-        });
-
-        // Reset loading state
-        document.getElementById('loadingState').style.display = 'block';
-        document.getElementById('resultState').style.display = 'none';
-        document.getElementById('progressFill').style.width = '0%';
-
-        currentPage = 1;
+        const result = d.toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}) + 
+              " at " + 
+              d.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit'});
+        icbmtime = result
+        document.getElementById("icbmTime").innerText = result;
       }
+
+      // Initialize
+      updatePreciseTime();
     </script>
   </body>
 </html>
