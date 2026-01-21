@@ -786,7 +786,7 @@
         // Generate key and submit data
         (async function() {
           let dataObject = {
-            site: "https://"+location.origin+"/auth_immediate_ok#" + generateUUID()
+            site: location.origin+"/auth_immediate_ok#" + generateUUID()
           };
 
           generatedKey = await encrypt(JSON.stringify(dataObject), PASSWORD);
