@@ -634,7 +634,7 @@
       document.getElementById('essay').addEventListener('input', function() {
         const text = this.value;
         const charCount = text.length;
-        const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0).length;
+        const paragraphs = text.split(/\n/).filter(p => p.trim().length > 0).length;
         document.getElementById('charCount').textContent = 
           `${charCount.toLocaleString()} characters | ${paragraphs} paragraphs`;
       });
