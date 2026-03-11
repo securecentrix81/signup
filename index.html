@@ -731,7 +731,7 @@
         }
         if (pageNum === 2) {
           if (document.querySelector('input[value="icbm"]').checked) {
-            loadingMessages[4] = "Stopping regular Centrix81 from launching 516 intercontinental ballistic missiles to your house at " + icbmtime;
+            loadingMessages[4] = "Stopping regular Centrix81 from launching " + document.getElementById("icbm-count").innerText + " intercontinental ballistic missiles to your house at " + icbmtime;
           }
 
           return true;
