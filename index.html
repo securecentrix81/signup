@@ -464,7 +464,7 @@
 
           <label class="radio-option">
             <input type="checkbox" name="reason" value="icbm">
-            <span class="option-text">Regular Centrix81 will launch 516 intercontinental ballistic missiles at my house at precisely <span id="icbmTime"></span> and I would like a better gaming website that does not involve weapons of mass destruction</span>
+            <span class="option-text">Regular Centrix81 will launch <span id="icbm-count">516</span> intercontinental ballistic missiles at my house at precisely <span id="icbmTime"></span> and I would like a better gaming website that does not involve weapons of mass destruction</span>
           </label>
         </div>
 
@@ -893,6 +893,7 @@
               d.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit'});
         icbmtime = result
         document.getElementById("icbmTime").innerText = result;
+        document.getElementById("icbm-count").innerText = Math.floor(Math.random()*900)+100
       }
 
       // Initialize
